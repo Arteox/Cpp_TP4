@@ -1,74 +1,51 @@
 /*************************************************************************
-                           Xxx  -  description
+                           main  -  description
                              -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+    début                : 18/01/2019
+    copyright            : (C) 2019 par Alexandra LAFAILLE et Louis UNG
+    e-mail               : alexandra.lafaille@insa-lyon.fr et louis.ung@insa-lyon.fr
 *************************************************************************/
 
-//---------- Réalisation de la classe <Xxx> (fichier Xxx.cpp) ------------
-
-//---------------------------------------------------------------- INCLUDE
-
-//-------------------------------------------------------- Include système
 #include <iostream>
 using namespace std;
+#include <string>
+#include <sstream>
+#include <vector>
+#include <algorithm>
 
-//------------------------------------------------------ Include personnel
-#include "Xxx.h"
+int main(int argc, char** argv){
 
-//------------------------------------------------------------- Constantes
+    ifstream courtLog;
+    courtLog.open("court.log");
+    string lect;
+    ListeNoeud LN;
 
-//----------------------------------------------------------------- PUBLIC
+    if (courtLog)
+    {
+        for (lect; getline(fic, lect); )
+        {
+            istringstream iss(lect);
+            vector <string> champIndiv {istream_iterator<string>{iss}, istream_iterator<string>{}};
+            string ip = vector[0];
+            string username = vector[1];
+            string pseudo = vector[2];
+            string dateInfo = vector[3] + vector[4];
+            string action = vector[5].substr(1,3);
 
-//----------------------------------------------------- Méthodes publiques
-// type Xxx::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
+            string URL_local = vector[6];
+            string extension = vector[6].substr(1,vector[6].find("."));
 
+            int statut = stoi(vector[8]);
+            int donnee = stoi(vector[9]);
+            string ref = vector[10].substr(1, vecto[10].length()-1);
+            string navi = vector[11].substr(1, vector[11].length()-1);
 
-//------------------------------------------------- Surcharge d'opérateurs
-Xxx & Xxx::operator = ( const Xxx & unXxx )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
+            Date d(dateInfo);
+            Noeud n (d, statut, URL_local, action, donnee, navi, extension, ip, username, pseudo) ;
+            LN.addToMap(n);
 
-
-//-------------------------------------------- Constructeurs - destructeur
-Xxx::Xxx ( const Xxx & unXxx )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Xxx>" << endl;
-#endif
-} //----- Fin de Xxx (constructeur de copie)
-
-
-Xxx::Xxx ( )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de <Xxx>" << endl;
-#endif
-} //----- Fin de Xxx
-
-
-Xxx::~Xxx ( )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au destructeur de <Xxx>" << endl;
-#endif
-} //----- Fin de ~Xxx
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
+        }
+    }
+    courtLog.close();
+    LN.Afficher();
+}

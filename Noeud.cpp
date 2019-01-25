@@ -1,12 +1,12 @@
 /*************************************************************************
-                           Xxx  -  description
+                           Noeud  -  description
                              -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+    début                : 18/01/2019
+    copyright            : (C) 2019 par Alexandra LAFAILLE et Louis UNG
+    e-mail               : alexandra.lafaille@insa-lyon.fr et louis.ung@insa-lyon.fr
 *************************************************************************/
 
-//---------- Réalisation de la classe <Xxx> (fichier Xxx.cpp) ------------
+//---------- Réalisation de la classe <Noeud> (fichier Noeud.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -15,57 +15,63 @@
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Xxx.h"
+#include "Noeud.h"
 
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Xxx::Méthode ( liste des paramètres )
+// type Noeud::Méthode ( liste des paramètres )
 // Algorithme :
 //
 //{
 //} //----- Fin de Méthode
 
+string Noeud::GetURL()
+{
+    return URL_local;
+}
 
 //------------------------------------------------- Surcharge d'opérateurs
-Xxx & Xxx::operator = ( const Xxx & unXxx )
+/*Noeud & Noeud::operator = ( const Noeud & unNoeud )
 // Algorithme :
 //
 {
-} //----- Fin de operator =
+} //----- Fin de operator =*/
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Xxx::Xxx ( const Xxx & unXxx )
+/*Noeud::Noeud ( const Noeud & unNoeud )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de copie de <Xxx>" << endl;
+    cout << "Appel au constructeur de copie de <Noeud>" << endl;
 #endif
-} //----- Fin de Xxx (constructeur de copie)
+} //----- Fin de Noeud (constructeur de copie)*/
 
 
-Xxx::Xxx ( )
+Noeud::Noeud (Date d, int s, string URL, string act, int don, string n, string ext, string IP, string u, string p, string ref)
+: date (d), statut(s), URL_local(URL), action(act), donnee(don), navi(n), extension(ext), ip(IP), username(u), pseudo(p)
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Xxx>" << endl;
+    cout << "Appel au constructeur de <Noeud>" << endl;
 #endif
-} //----- Fin de Xxx
+    refs.insert(ref);
+} //----- Fin de Noeud
 
 
-Xxx::~Xxx ( )
+Noeud::~Noeud ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Xxx>" << endl;
+    cout << "Appel au destructeur de <Noeud>" << endl;
 #endif
-} //----- Fin de ~Xxx
+} //----- Fin de ~Noeud
 
 
 //------------------------------------------------------------------ PRIVE
