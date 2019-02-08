@@ -36,7 +36,18 @@ public:
     //
     // Contrat :
     //
+	
     string GetURL();
+	// Mode d'emploi :
+    //
+    // Contrat :
+    //
+	
+	bool NoeudValide();
+	// Mode d'emploi : Renvoie vrai ssi statut = 200 et action = GET
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
     //Noeud & operator = ( const Noeud & unNoeud );

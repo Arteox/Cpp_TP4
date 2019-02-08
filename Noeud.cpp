@@ -33,6 +33,16 @@ string Noeud::GetURL()
     return URL_local;
 }
 
+bool Noeud::NoeudValide()
+{
+	if (statut == 200 && action == "GET"){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 /*Noeud & Noeud::operator = ( const Noeud & unNoeud )
 // Algorithme :
