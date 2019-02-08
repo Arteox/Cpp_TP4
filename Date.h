@@ -18,7 +18,7 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-typedef enum month {Jan=1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec} month;
+typedef enum month {Jan=1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec};
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Date>
@@ -57,6 +57,12 @@ public:
 
     Date ( string date_brute );
     // Mode d'emploi :
+    //
+    // Contrat :
+    //
+	
+	Date ( );
+    // Mode d'emploi : Constructeur sans paramètres
     //
     // Contrat :
     //

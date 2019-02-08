@@ -53,13 +53,22 @@ string Noeud::GetURL()
 
 
 Noeud::Noeud (Date d, int s, string URL, string act, int don, string n, string ext, string IP, string u, string p, string ref)
-: date (d), statut(s), URL_local(URL), action(act), donnee(don), navi(n), extension(ext), ip(IP), username(u), pseudo(p)
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Noeud>" << endl;
 #endif
+	date =d;
+	statut = s;
+	URL_local = URL;
+	action = act;
+	donnee = don;
+	navi = n;
+	extension = ext;
+	ip = IP;
+	username = u;
+	pseudo = p;
     refs.insert(ref);
 } //----- Fin de Noeud
 

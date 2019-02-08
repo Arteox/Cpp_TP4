@@ -21,11 +21,11 @@
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Noeud>
-//
+// Contient toutes les informations d'un noeud, cad d'une URL d'un fichier point log
 //
 //------------------------------------------------------------------------
 
-class Noeud0
+class Noeud
 {
 //----------------------------------------------------------------- PUBLIC
 

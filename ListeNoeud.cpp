@@ -28,53 +28,62 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-void ListeNoeud::addToMap(Noeud cible, string ref)
+void ListeNoeud::ajoutMap(Noeud cible, string ref)
 {
+	//si on ne trouve pas le noeud, on l'ajoute
     if (listeN.find(cible.GetURL()) == listeN.end()){
         listeN.insert(make_pair(cible.GetURL(), 1));
     }
     else
+	//le noeud existe, on incrémente
     {
         map<string, int>::iterator it = listeN.find(cible.GetURL());
-        listeN[it->second]++;
-        listeN[it->first].refs.insert(ref);
-    }
-}
-
-void ListeNoeud::Afficher()
-{
-    multimap <int, string> affi = flip_map(listeN);
-    map<int, string>::iterator it;
-    int index =0;
-    for (it = affi.rbegin(); it != affi.rend() || index ==10 ; it++)
-    {
-        cout <<it->second<< " : " <<it->first<< endl;
-        index++;
+        it->second++;
+		//pour le graphe
+        //it->first.refs.insert(ref); marche pas car first est un string, pas un noeud 
     }
 }
 
 map <string, int> ListeNoeud::MapAssocieCible(string cible)
 {
-    map<string, int>::iterator it = listeN.find(n.GetURL());
+    map<string, int>::iterator it = listeN.find(cible);
     map<string, int> mapReturn;
     map<string, int>::iterator it2;
-    for (it2 = it->.begin(); it != listeN.end(); it++)
+    for (it2 = it; it2 != listeN.end(); it2++)
     {
         //comment recuperer la liste des ref du noeud cible
     }
 
 }
 
-pair<int, string> ListeNoeud:flip_pair(const pair<string, int> &p)
+pair<int, string> ListeNoeud::flip_pair(const pair<string, int> &p)
 {
     return pair<int, string>(p.second, p.first);
 }
 
-multimap <int, string> ListeNoeud::flip_map(const map <string, int> &src)
+multimap <int, string> ListeNoeud::flip_map(map <string, int> &src)
 {
     multimap <int, string> dst;
-    transform(src.begin(), src.end(), inserter(dst, dst.begin()),flip_pair<int,string>);
+    //transform(src.begin(), src.end(), inserter(dst, dst.begin()),flip_pair);
+	map<string, int>::iterator it;
+	for (it = src.begin(); it!=src.end(); ++it)
+	{
+		dst.insert(make_pair(it->second, it->first));
+	}
     return dst;
+}
+
+void ListeNoeud::Afficher()
+//afficher les noeuds dans l'ordre décroissant des occurences, flip puis multimap
+{
+    multimap <int, string> affichage = flip_map(listeN);
+    multimap<int, string>::reverse_iterator it;
+    int index =0;
+    for (it = affichage.rbegin(); (it != affichage.rend() && index <10) ; ++it)
+    {
+        cout <<it->second<< " : " <<it->first<< endl;
+        ++index;
+    }
 }
 
 //------------------------------------------------- Surcharge d'opérateurs

@@ -57,45 +57,42 @@ Date::Date ( string date_brute )
 #endif
     jour = stoi(date_brute.substr(1,2));
 
-    switch (date_brute.subst(4,3)){
-        case "Jan" :
-            mois = Jan;
-            break;
-        case "Feb" :
-            mois = Feb;
-            break;
-        case "Mar" :
-            mois = Mar;
-            break;
-        case "Apr" :
-            mois = Apr;
-            break;
-        case "May" :
-            mois = May;
-            break;
-        case "Jun" :
-            mois = Jun;
-            break;
-        case "Jul" :
-            mois = Jul;
-            break;
-        case "Aug" :
-            mois = Aug;
-            break;
-        case "Sep" :
-            mois = Sep;
-            break;
-        case "Oct" :
-            mois = Oct;
-            break;
-        case "Nov" :
-            mois = Nov;
-            break;
-        case "Dec" :
-            mois = Dec;
-            break;
-    }
-
+    if (date_brute.substr(4,3)=="Jan"){
+		mois = Jan;
+	}
+	else if (date_brute.substr(4,3)=="Feb"){
+		mois =Feb;
+	}
+	else if (date_brute.substr(4,3)=="Mar"){
+		mois =Mar;
+	}
+	else if (date_brute.substr(4,3)=="Apr"){
+		mois =Apr;
+	}
+	else if (date_brute.substr(4,3)=="May"){
+		mois =May;
+	}
+	else if (date_brute.substr(4,3)=="Jun"){
+		mois =Jun;
+	}
+	else if (date_brute.substr(4,3)=="Jul"){
+		mois =Jul;
+	}
+	else if (date_brute.substr(4,3)=="Aug"){
+		mois =Aug;
+	}
+	else if (date_brute.substr(4,3)=="Sep"){
+		mois =Sep;
+	}
+	else if (date_brute.substr(4,3)=="Oct"){
+		mois =Oct;
+	}
+	else if (date_brute.substr(4,3)=="Nov"){
+		mois =Nov;
+	}
+	else if (date_brute.substr(4,3)=="Dec"){
+		mois =Dec;
+	}
     annee = stoi(date_brute.substr(8,4));
 
     heure = stoi(date_brute.substr(13,2));
@@ -105,6 +102,9 @@ Date::Date ( string date_brute )
     GMT = stoi(date_brute.substr(22,5));
 } //----- Fin de Date
 
+Date::Date()
+{
+}
 
 Date::~Date ( )
 // Algorithme :
