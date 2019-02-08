@@ -19,15 +19,15 @@ using namespace std;
 
 int main(int argc, char** argv){
 
-    ifstream courtLog;
-    courtLog.open("court.log");
+    ifstream ficLog;
+    ficLog.open("anonyme.log");
     string lect;
     ListeNoeud LN;
 
-    if (courtLog)
+    if (ficLog)
     {
 		//lecture du fichier log ligne par ligne
-        for (lect; getline(courtLog, lect); )
+        for (lect; getline(ficLog, lect); )
         {
             istringstream iss(lect);
             vector <string> champIndiv {istream_iterator<string>{iss}, istream_iterator<string>{}};
@@ -39,9 +39,16 @@ int main(int argc, char** argv){
 
             string URL_local = champIndiv[6];
             string extension = champIndiv[6].substr(1,champIndiv[6].find("."));
-
-            int statut = stoi(champIndiv[8]);
-            int donnee = stoi(champIndiv[9]);
+			
+			int statut;
+			int donnee;
+			if (champIndiv[8].find_first_not_of("123456789") ==-1) {
+				statut = stoi(champIndiv[8]);
+			}
+			if (champIndiv[8].find_first_not_of("123456789") ==-1) {
+				donnee = stoi(champIndiv[9]);
+			}
+			//cout << "hey" << endl;
             string ref = champIndiv[10].substr(1, champIndiv[10].length()-1);
             string navi = champIndiv[11].substr(1, champIndiv[11].length()-1);
 
@@ -52,6 +59,6 @@ int main(int argc, char** argv){
 
         }
     }
-    courtLog.close();
+    ficLog.close();
     LN.Afficher();
 }

@@ -8,8 +8,8 @@ Main.ex: $(OBJ)
 
 %.ex: 
 	$(CC) -g $^ -o $@
-	#./$@
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --max-stackframe=10485760 ./$@
+	./$@
+	#valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --max-stackframe=10485760 ./$@
 
 %.o: %.cpp $(DEPS)
 	$(CC) -c $< -o $@ $(CFLAGS)
