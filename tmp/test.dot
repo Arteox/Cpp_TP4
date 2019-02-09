@@ -1,0 +1,6 @@
+digraph {
+	"/page1.html";
+	"/page2.html";
+	"/page1.html" -> "/page2.html" [label="55"];
+	"/page2.html" -> "/page1.html" [label="15"];
+}

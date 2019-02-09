@@ -13,7 +13,6 @@
 //--------------------------------------------------- Interfaces utilisées
 #include "Date.h"
 #include <string>
-#include <set>
 #include <algorithm>
 //------------------------------------------------------------- Constantes
 
@@ -64,7 +63,7 @@ public:
     // Contrat :
     //
 
-    Noeud (Date d, int s, string URL, string act, int don, string n, string ext, string IP, string u, string p, string ref);
+    Noeud (Date d, int s, string URL, string act, int don, string n, string ext, string IP, string u, string p);
     // Mode d'emploi :
     //
     // Contrat :
@@ -92,7 +91,6 @@ protected:
     string ip;
     string username;
     string pseudo;
-    set <string> refs;
 
 };
 

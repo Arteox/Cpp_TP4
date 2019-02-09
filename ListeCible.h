@@ -15,6 +15,7 @@
 #include <iterator>
 #include <map>
 #include <algorithm>
+#include <string>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -36,7 +37,7 @@ public:
     //
     // Contrat :
     //
-    //void addToMap(Arc a);
+    void AjoutMap(string cible, string ref);
 
 //------------------------------------------------- Surcharge d'opérateurs
     ListeCible & operator = ( const ListeCible & unListeCible );
@@ -53,7 +54,7 @@ public:
     // Contrat :
     //
 
-    ListeCible (ListeNoeud LN);
+    ListeCible ();
     // Mode d'emploi :
     //
     // Contrat :

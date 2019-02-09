@@ -20,7 +20,7 @@ using namespace std;
 int main(int argc, char** argv){
 
     ifstream ficLog;
-    ficLog.open("anonyme.log");
+    ficLog.open("court.log");
     string lect;
     ListeNoeud LN;
 
@@ -53,10 +53,10 @@ int main(int argc, char** argv){
             string navi = champIndiv[11].substr(1, champIndiv[11].length()-1);
 
             Date d(dateInfo);
-            Noeud n (d, statut, URL_local, action, donnee, navi, extension, ip, username, pseudo, ref);
+            Noeud n (d, statut, URL_local, action, donnee, navi, extension, ip, username, pseudo);
 			
 			if (n.NoeudValide()){
-				LN.ajoutMap(n, ref);
+				LN.AjoutMap(URL_local);
 			}
         }
     }

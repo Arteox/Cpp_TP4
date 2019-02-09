@@ -67,12 +67,7 @@ ListeCible::ListeCible ( )
 #ifdef MAP
     cout << "Appel au constructeur de <ListeCible>" << endl;
 #endif
-    map<string, int>::iterator it;
-    for (it = LN.begin(); it != LN.end(); it++)
-    {
-
-
-    }
+    
 } //----- Fin de ListeCible
 
 

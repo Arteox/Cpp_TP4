@@ -28,32 +28,18 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-void ListeNoeud::ajoutMap(Noeud cible, string ref)
+void ListeNoeud::AjoutMap(const string &cible)
 {
 	//si on ne trouve pas le noeud, on l'ajoute
-    if (listeN.find(cible.GetURL()) == listeN.end()){
-        listeN.insert(make_pair(cible.GetURL(), 1));
+    if (listeN.find(cible) == listeN.end()){
+        listeN.insert(make_pair(cible, 1));
     }
     else
 	//le noeud existe, on incrémente
     {
-        map<string, int>::iterator it = listeN.find(cible.GetURL());
+        map<string, int>::iterator it = listeN.find(cible);
         it->second++;
-		//pour le graphe
-        //it->first.refs.insert(ref); marche pas car first est un string, pas un noeud 
     }
-}
-
-map <string, int> ListeNoeud::MapAssocieCible(string cible)
-{
-    map<string, int>::iterator it = listeN.find(cible);
-    map<string, int> mapReturn;
-    map<string, int>::iterator it2;
-    for (it2 = it; it2 != listeN.end(); it2++)
-    {
-        //comment recuperer la liste des ref du noeud cible
-    }
-
 }
 
 pair<int, string> ListeNoeud::flip_pair(const pair<string, int> &p)
@@ -61,11 +47,10 @@ pair<int, string> ListeNoeud::flip_pair(const pair<string, int> &p)
     return pair<int, string>(p.second, p.first);
 }
 
-multimap <int, string> ListeNoeud::flip_map(map <string, int> &src)
+multimap <int, string> ListeNoeud::flip_map(const map <string, int> &src)
 {
     multimap <int, string> dst;
-    //transform(src.begin(), src.end(), inserter(dst, dst.begin()),flip_pair);
-	map<string, int>::iterator it;
+	map<string, int>::const_iterator it;
 	for (it = src.begin(); it!=src.end(); ++it)
 	{
 		dst.insert(make_pair(it->second, it->first));

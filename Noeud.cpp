@@ -62,7 +62,7 @@ bool Noeud::NoeudValide()
 } //----- Fin de Noeud (constructeur de copie)*/
 
 
-Noeud::Noeud (Date d, int s, string URL, string act, int don, string n, string ext, string IP, string u, string p, string ref)
+Noeud::Noeud (Date d, int s, string URL, string act, int don, string n, string ext, string IP, string u, string p)
 // Algorithme :
 //
 {
@@ -79,7 +79,6 @@ Noeud::Noeud (Date d, int s, string URL, string act, int don, string n, string e
 	ip = IP;
 	username = u;
 	pseudo = p;
-    refs.insert(ref);
 } //----- Fin de Noeud
 
 

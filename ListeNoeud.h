@@ -14,7 +14,6 @@
 #include "Noeud.h"
 #include <iterator>
 #include <map>
-#include <vector>
 #include <algorithm>
 #include <utility>
 //------------------------------------------------------------- Constantes
@@ -39,11 +38,10 @@ public:
     // Contrat :
     //
 
-    void ajoutMap(Noeud, string);
+    void AjoutMap(const string &cible);
     void Afficher();
-    map <string, int> MapAssocieCible(string cible);
     pair <int, string> flip_pair(const pair<string, int> &p);
-    multimap <int, string> flip_map(map <string, int> &src);
+    multimap <int, string> flip_map(const map <string, int> &src);
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -82,7 +80,6 @@ protected:
 
 	//cle : url local et valeur : nombre d'occurences
     map <string, int> listeN;
-    vector <Noeud> v;
 
 };
 
