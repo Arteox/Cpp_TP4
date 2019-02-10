@@ -28,7 +28,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-string Noeud::GetURL()
+string Noeud::GetURL() const
 {
     return URL_local;
 }

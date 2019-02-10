@@ -37,7 +37,14 @@ public:
     //
     // Contrat :
     //
-    void AjoutMap(string cible, string ref);
+    void AjoutMap(const string &cible, const string &ref);
+	map <string, map<string, int>> GetMap() const;
+	
+	void NettoyageMap(const map <string, int>& listeNoeud);
+	// Mode d'emploi : 
+    // Supprime tous les référents qui ne sont pas présents dans la liste des noeuds, car cela pose un problème pour le dessin du graphe
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
     ListeCible & operator = ( const ListeCible & unListeCible );
@@ -74,7 +81,7 @@ protected:
 //----------------------------------------------------- Attributs protégés
 
     //clé : cible et valeur : map de ref et label
-     map <string, map<string, int>> listeC;
+    map <string, map<string, int>> listeC;
 
 };
 

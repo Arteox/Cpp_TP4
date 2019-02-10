@@ -27,25 +27,70 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-/*void ListeCible::addToMap(Arc a)
+void ListeCible::AjoutMap(const string &cible, const string &ref)
 {
+	//la cible n'est pas dans le map
+	if (listeC.find(cible) == listeC.end()){
+		map <string, int> refs;
+		refs.insert(make_pair(ref,1));
+		listeC.insert(make_pair(cible,refs));
+	}
+	
+	//la cible deja presente, 2 cas
+	//verifier si ref present : non on l'ajoute dans map, oui on incremente
+	else {
+		map <string, map<string, int>>::iterator it1;
+		it1 = listeC.find(cible);
+		if (it1->second.find(ref) == it1->second.end()){
+			it1->second.insert(make_pair(ref,1));
+		}
+		else {
+			map <string, int>::iterator it2;
+			it2 = it1->second.find(ref);
+			++it2->second;
+		}
+	}
+}
 
+map <string, map<string, int>> ListeCible::GetMap() const
+{
+	return listeC;
+}
 
-    if (listeA.find(a.GetCible()) == listeN.end()){
-        listeA.insert(make_pair(a.GetCible(),a.listeRef));
-    }
-    else
-    {
-        map<string, int>::iterator it = listeN.find(n);
-        listeN[it->second]++;
-    }
-}*/
+void ListeCible::NettoyageMap(const map <string, int>& listeNoeud)
+{
+	map<string,map<string, int>>::iterator itCible;
+	
+	//on supprime les cibles qui n'ont pas de référents
+	
+	
+	//on supprime les référents qui ne sont pas des noeuds
+	for (itCible = listeC.begin(); itCible !=listeC.end(); ++itCible) {
+		map <string, int>::iterator itRef;
+		itRef = itCible->second.begin();
+		while (itRef != itCible->second.end()){
+			if (listeNoeud.find(itRef->first) == listeNoeud.end()){
+				//itRef pointe vers l'élément suivant automatiquement
+				cout << "suppression d'une ref" << endl;
+				cout << "ref : " << itRef->first << endl;
+				itRef = itCible->second.erase(itRef);
+			}
+			else {
+				++itRef;
+			}
+		}
+	}
+}
 
 //------------------------------------------------- Surcharge d'opérateurs
 ListeCible & ListeCible::operator = ( const ListeCible & unListeCible )
 // Algorithme :
 //
 {
+	listeC.clear();
+	map <string, map<string,int>> nouvMap = unListeCible.GetMap();
+	listeC.insert(nouvMap.begin(), nouvMap.end());
+	return *this;
 } //----- Fin de operator =
 
 

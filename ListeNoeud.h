@@ -16,6 +16,7 @@
 #include <map>
 #include <algorithm>
 #include <utility>
+#include <iostream>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -42,6 +43,8 @@ public:
     void Afficher();
     pair <int, string> flip_pair(const pair<string, int> &p);
     multimap <int, string> flip_map(const map <string, int> &src);
+	map <string,int> GetMap() const;
+	bool MapEmpty();
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -50,7 +53,6 @@ public:
     //
     // Contrat :
     //
-
 
 //-------------------------------------------- Constructeurs - destructeur
     ListeNoeud ( const ListeNoeud & unListeNoeud );

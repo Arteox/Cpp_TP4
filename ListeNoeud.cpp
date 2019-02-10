@@ -59,7 +59,7 @@ multimap <int, string> ListeNoeud::flip_map(const map <string, int> &src)
 }
 
 void ListeNoeud::Afficher()
-//afficher les noeuds dans l'ordre décroissant des occurences, flip puis multimap
+//flip puis multimap et enfin afficher les noeuds dans l'ordre décroissant des occurences
 {
     multimap <int, string> affichage = flip_map(listeN);
     multimap<int, string>::reverse_iterator it;
@@ -71,13 +71,26 @@ void ListeNoeud::Afficher()
     }
 }
 
+map <string,int> ListeNoeud::GetMap() const
+{
+	return listeN;
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 ListeNoeud & ListeNoeud::operator = ( const ListeNoeud & unListeNoeud )
 // Algorithme :
 //
 {
+	map <string, int> nouvMap = unListeNoeud.GetMap();
+	listeN.clear();
+	listeN.insert(nouvMap.begin(), nouvMap.end());
+	return *this;
 } //----- Fin de operator =
 
+bool ListeNoeud::MapEmpty()
+{
+	return listeN.empty();
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 ListeNoeud::ListeNoeud ( const ListeNoeud & unListeNoeud )

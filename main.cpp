@@ -8,6 +8,7 @@
 
 #include <iostream>
 using namespace std;
+#include <cstring>
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -16,14 +17,37 @@ using namespace std;
 #include "Date.h"
 #include "Noeud.h"
 #include "ListeNoeud.h"
+#include "ListeCible.h"
+#include "GraphViz.h"
 
 int main(int argc, char** argv){
-
+	
     ifstream ficLog;
-    ficLog.open("court.log");
+	string nomFichier = argv[argc-1];
+    ficLog.open(nomFichier);
     string lect;
-    ListeNoeud LN;
-
+    ListeNoeud listeNoeud;
+	ListeCible listeCible;
+	bool optionG = false;
+	int indexG =0;
+	cout <<"argc : " << argc<<endl;
+	
+	//option -g
+	if (argc >=4){
+		for (int i =0; i<argc;i++){
+			cout << argv[i] << endl;
+			if (strcmp(argv[i],"-g")==0 && argv[i+1]!=NULL){
+				string verifFichierDot (argv[i+1]);
+				cout <<"-g trouvé : " << verifFichierDot <<endl;
+				if(verifFichierDot.find(".dot") != string::npos){
+					optionG = true;
+					indexG = i;
+					break;
+				}
+			}
+		}
+	}
+	
     if (ficLog)
     {
 		//lecture du fichier log ligne par ligne
@@ -38,7 +62,16 @@ int main(int argc, char** argv){
             string action = champIndiv[5].substr(1,3);
 
             string URL_local = champIndiv[6];
-            string extension = champIndiv[6].substr(1,champIndiv[6].find("."));
+			string extension;
+			
+			//revoir le 2e param de substr qui correspond au nb de caractères à prendre
+			if (champIndiv[6].find(".") != string::npos){
+				int indice_debut = champIndiv[6].find(".")+1;
+				extension = champIndiv[6].substr(indice_debut,champIndiv[6].length()-indice_debut);
+			}
+			else {
+				extension = "-";
+			}
 			
 			int statut =0;
 			int donnee =0;
@@ -49,17 +82,38 @@ int main(int argc, char** argv){
 				donnee = stoi(champIndiv[9]);
 			}
 			
-            string ref = champIndiv[10].substr(1, champIndiv[10].length()-1);
+            string ref;
+			if (champIndiv[10].find("http://intranet-if.insa-lyon.fr") != string::npos){
+				int indice_debut = champIndiv[10].find("http://intranet-if.insa-lyon.fr")+31;
+				ref = champIndiv[10].substr(indice_debut, champIndiv[10].length()-1-indice_debut);
+			}
+			else {
+				ref = champIndiv[10].substr(1,champIndiv[10].length()-2);
+			}
             string navi = champIndiv[11].substr(1, champIndiv[11].length()-1);
 
             Date d(dateInfo);
             Noeud n (d, statut, URL_local, action, donnee, navi, extension, ip, username, pseudo);
 			
 			if (n.NoeudValide()){
-				LN.AjoutMap(URL_local);
+				listeNoeud.AjoutMap(URL_local);
+				if (optionG == true){
+					listeCible.AjoutMap(URL_local, ref);
+				}
 			}
         }
+		
     }
     ficLog.close();
-    LN.Afficher();
+    listeNoeud.Afficher();
+	
+	//graphe
+	if (optionG==true){
+		string nomFichierDot = argv[indexG+1];
+		GraphViz graphe(listeNoeud, listeCible, nomFichierDot);
+		graphe.GenererFichierDot();
+		cout << "fichier dot généré ! "<<endl;
+		
+		graphe.GenererFichierPng();
+	}
 }

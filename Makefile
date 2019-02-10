@@ -1,15 +1,17 @@
 CC = g++
 CFLAGS = -ansi -pedantic -Wall -std=c++11
-OBJ = Noeud.o ListeNoeud.o Date.o main.o
-DEPS = Noeud.h ListeNoeud.h Date.h
+OBJ = Noeud.o ListeNoeud.o Date.o main.o ListeCible.o GraphViz.o
+DEPS = Noeud.h ListeNoeud.h Date.h ListeCible.h GraphViz.h
 
-Main.ex: $(OBJ)
-
-
-%.ex: 
+analog: $(OBJ)
 	$(CC) -g $^ -o $@
-	./$@
-	#valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --max-stackframe=10485760 ./$@
+	./analog court.log
+	#valgrind --leak-check=full ./analog court.log
+	
+analogG: $(OBJ)
+	$(CC) -g $^ -o $@
+	./analogG -g court.dot court.log
+	#valgrind --leak-check=full ./analogG -g court.dot court.log
 
 %.o: %.cpp $(DEPS)
 	$(CC) -c $< -o $@ $(CFLAGS)
@@ -17,4 +19,4 @@ Main.ex: $(OBJ)
 .PHONY: clean
 
 clean : 
-	rm -rf *.ex *.o core
+	rm -rf *.ex *.o core analog analogG

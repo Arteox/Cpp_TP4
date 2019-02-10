@@ -1,30 +1,36 @@
 /*************************************************************************
-                           Noeud  -  description
+                           GraphViz  -  description
                              -------------------
     début                : 18/01/2019
     copyright            : (C) 2019 par Alexandra LAFAILLE et Louis UNG
     e-mail               : alexandra.lafaille@insa-lyon.fr et louis.ung@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe <Noeud> (fichier Noeud.h) ----------------
-#if ! defined ( Noeud_H )
-#define Noeud_H
+//---------- Interface de la classe <GraphViz> (fichier GraphViz.h) ----------------
+#if ! defined ( GraphViz_H )
+#define GraphViz_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "Date.h"
+#include "ListeNoeud.h"
+#include "ListeCible.h"
 #include <string>
 #include <algorithm>
+#include <map>
+#include <iterator>
+#include <fstream>
+#include <sstream>
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <Noeud>
-// Contient toutes les informations d'un noeud, cad d'une URL d'un fichier point log
+// Rôle de la classe <GraphViz>
+//
 //
 //------------------------------------------------------------------------
 
-class Noeud
+class GraphViz
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -36,20 +42,11 @@ public:
     // Contrat :
     //
 	
-    string GetURL() const;
-	// Mode d'emploi :
-    //
-    // Contrat :
-    //
-	
-	bool NoeudValide();
-	// Mode d'emploi : Renvoie vrai ssi statut = 200 et action = GET
-    //
-    // Contrat :
-    //
+	void GenererFichierDot();
+	void GenererFichierPng();
 
 //------------------------------------------------- Surcharge d'opérateurs
-    //Noeud & operator = ( const Noeud & unNoeud );
+    GraphViz & operator = ( const GraphViz & unGraphViz );
     // Mode d'emploi :
     //
     // Contrat :
@@ -57,19 +54,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    //Noeud ( const Noeud & unNoeud );
+    GraphViz ( const GraphViz & unGraphViz );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    Noeud (Date d, int s, string URL, string act, int don, string n, string ext, string IP, string u, string p);
+    GraphViz (ListeNoeud& N, ListeCible& C, string& nomF);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~Noeud ( );
+    virtual ~GraphViz ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -81,20 +78,13 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-    Date date;
-    int statut;
-    string URL_local;
-    string action;
-    int donnee;
-    string navi;
-    string extension;
-    string ip;
-    string username;
-    string pseudo;
+	ListeNoeud listeNoeud;
+	ListeCible listeCible;
+	string nomFichier;
 
 };
 
-//-------------------------------- Autres définitions dépendantes de <Noeud>
+//-------------------------------- Autres définitions dépendantes de <GraphViz>
 
-#endif // Noeud_H
+#endif // GraphViz_H
 
