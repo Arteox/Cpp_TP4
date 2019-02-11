@@ -10,7 +10,7 @@ analog: $(OBJ)
 	
 analogG: $(OBJ)
 	$(CC) -g $^ -o $@
-	./analogG -g court.dot court.log
+	./analogG -g court2.dot court2.log
 
 %.o: %.cpp $(DEPS)
 	$(CC) -c $< -o $@ $(CFLAGS)
@@ -18,4 +18,4 @@ analogG: $(OBJ)
 .PHONY: clean
 
 clean : 
-	rm -rf *.ex *.o core analog analogG
+	rm -rf *.ex *.o core analog analogG *.png *.dot

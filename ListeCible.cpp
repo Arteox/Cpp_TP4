@@ -61,9 +61,6 @@ void ListeCible::NettoyageMap(const map <string, int>& listeNoeud)
 {
 	map<string,map<string, int>>::iterator itCible;
 	
-	//on supprime les cibles qui n'ont pas de référents
-	
-	
 	//on supprime les référents qui ne sont pas des noeuds
 	for (itCible = listeC.begin(); itCible !=listeC.end(); ++itCible) {
 		map <string, int>::iterator itRef;
