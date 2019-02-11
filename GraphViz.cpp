@@ -32,8 +32,6 @@ void GraphViz::GenererFichierDot()
 	ofstream fichierDot;
 	fichierDot.open(nomFichier);
 	if (fichierDot){
-		cout << "début ecriture" <<endl;
-		
 		fichierDot << "digraph {" <<endl;
 		//ecriture du nom des noeuds
 		map <string, int> mapNoeud = listeNoeud.GetMap();
@@ -50,14 +48,6 @@ void GraphViz::GenererFichierDot()
 		map <string, map<string, int>> mapCible = listeCible.GetMap();
 		map<string, map<string,int>>::iterator itCible;
 		map<string, int>::iterator itRef;
-
-		/*for (itCible = mapCible.begin(); itCible != mapCible.end(); ++itCible){
-			fichierDot << "\t\"" << itCible->first << "\"" << " -> ";
-			for (itRef = itCible->second.begin(); itRef != itCible->second.end(); ++itRef){
-				fichierDot << "\"" << itRef->first << " [label=\"" << itRef->second << "\"];";
-			}
-			fichierDot << endl;
-		}*/
 		
 		for (itCible = mapCible.begin(); itCible != mapCible.end(); ++itCible){
 			for (itRef = itCible->second.begin(); itRef != itCible->second.end(); ++itRef){
@@ -67,7 +57,6 @@ void GraphViz::GenererFichierDot()
 			fichierDot << endl;
 		}
 		fichierDot << "}";
-		cout << "fin écriture" << endl;
 	}
 	fichierDot.close();
 }
@@ -75,7 +64,7 @@ void GraphViz::GenererFichierDot()
 void GraphViz::GenererFichierPng()
 {
 	string nomFichierPng = nomFichier.substr(0, nomFichier.length()-3) + "png";
-	string commande = "\"dot -Tpng -o " + nomFichierPng + " " +nomFichier + "\"";
+	string commande = "dot -Tpng -o " + nomFichierPng + " " +nomFichier;
 	system(commande.c_str());
 }
 

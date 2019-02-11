@@ -30,15 +30,12 @@ int main(int argc, char** argv){
 	ListeCible listeCible;
 	bool optionG = false;
 	int indexG =0;
-	cout <<"argc : " << argc<<endl;
 	
 	//option -g
 	if (argc >=4){
 		for (int i =0; i<argc;i++){
-			cout << argv[i] << endl;
 			if (strcmp(argv[i],"-g")==0 && argv[i+1]!=NULL){
 				string verifFichierDot (argv[i+1]);
-				cout <<"-g trouvé : " << verifFichierDot <<endl;
 				if(verifFichierDot.find(".dot") != string::npos){
 					optionG = true;
 					indexG = i;
@@ -112,8 +109,6 @@ int main(int argc, char** argv){
 		string nomFichierDot = argv[indexG+1];
 		GraphViz graphe(listeNoeud, listeCible, nomFichierDot);
 		graphe.GenererFichierDot();
-		cout << "fichier dot généré ! "<<endl;
-		
 		graphe.GenererFichierPng();
 	}
 }

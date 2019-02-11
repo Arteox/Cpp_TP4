@@ -11,7 +11,6 @@ analog: $(OBJ)
 analogG: $(OBJ)
 	$(CC) -g $^ -o $@
 	./analogG -g court.dot court.log
-	#valgrind --leak-check=full ./analogG -g court.dot court.log
 
 %.o: %.cpp $(DEPS)
 	$(CC) -c $< -o $@ $(CFLAGS)

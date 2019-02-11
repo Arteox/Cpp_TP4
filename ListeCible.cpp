@@ -71,8 +71,6 @@ void ListeCible::NettoyageMap(const map <string, int>& listeNoeud)
 		while (itRef != itCible->second.end()){
 			if (listeNoeud.find(itRef->first) == listeNoeud.end()){
 				//itRef pointe vers l'élément suivant automatiquement
-				cout << "suppression d'une ref" << endl;
-				cout << "ref : " << itRef->first << endl;
 				itRef = itCible->second.erase(itRef);
 			}
 			else {
