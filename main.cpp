@@ -85,7 +85,13 @@ int main(int argc, char** argv){
 				ref = champIndiv[10].substr(indice_debut, champIndiv[10].length()-1-indice_debut);
 			}
 			else {
-				ref = champIndiv[10].substr(1,champIndiv[10].length()-2);
+				if (champIndiv[10].find("?") == string::npos){
+					ref = champIndiv[10].substr(1,champIndiv[10].length()-2);
+				}
+				else {
+					int indiceQ = champIndiv[10].find("?");
+					ref = champIndiv[10].substr(1, champIndiv[10].length()-indiceQ);
+				}
 			}
             string navi = champIndiv[11].substr(1, champIndiv[11].length()-1);
 
