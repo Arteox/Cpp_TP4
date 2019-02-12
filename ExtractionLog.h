@@ -1,33 +1,37 @@
 /*************************************************************************
-                           ListeNoeud  -  description
+                           ExtractionLog  -  description
                              -------------------
     début                : 18/01/2019
     copyright            : (C) 2019 par Alexandra LAFAILLE et Louis UNG
     e-mail               : alexandra.lafaille@insa-lyon.fr et louis.ung@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe <ListeNoeud> (fichier ListeNoeud.h) ----------------
-#if ! defined ( ListeNoeud_H )
-#define ListeNoeud_H
+//---------- Interface de la classe <ExtractionLog> (fichier ExtractionLog.h) ----------------
+#if ! defined ( ExtractionLog_H )
+#define ExtractionLog_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "Noeud.h"
-#include <iterator>
-#include <map>
+#include <cstring>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <vector>
 #include <algorithm>
-#include <utility>
-#include <iostream>
+#include "Date.h"
+#include "Noeud.h"
+#include "ListeNoeud.h"
+#include "ListeCible.h"
+#include "GraphViz.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <ListeNoeud>
-//
+// Rôle de la classe <ExtractionLog>
 //
 //------------------------------------------------------------------------
 
-class ListeNoeud
+class ExtractionLog
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -38,36 +42,31 @@ public:
     //
     // Contrat :
     //
-
-    void AjoutMap(const string &cible);
-    void AfficherDixPremiers();
-    pair <int, string> flip_pair(const pair<string, int> &p);
-    multimap <int, string> flip_map(const map <string, int> &src);
-	map <string,int> GetMap() const;
-	bool MapEmpty();
-
+	ListeNoeud* GetListeNoeud();
+	ListeCible* GetListeCible();
 
 //------------------------------------------------- Surcharge d'opérateurs
-    ListeNoeud & operator = ( const ListeNoeud & unListeNoeud );
+    //ExtractionLog & operator = ( const ExtractionLog & unExtractionLog );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+
 //-------------------------------------------- Constructeurs - destructeur
-    ListeNoeud ( const ListeNoeud & unListeNoeud );
+    //ExtractionLog ( const ExtractionLog & unExtractionLog );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    ListeNoeud ( );
+    ExtractionLog (const string& nomF, const bool& optG);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~ListeNoeud ( );
+    virtual ~ExtractionLog ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -79,13 +78,14 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
-	//cle : url local et valeur : nombre d'occurences
-    map <string, int> listeN;
-
+	ifstream fichierLog;
+	ListeNoeud listeNoeud;
+	ListeCible listeCible;
+	bool optionG;
+	string nomFichier;
 };
 
-//-------------------------------- Autres définitions dépendantes de <ListeNoeud>
+//-------------------------------- Autres définitions dépendantes de <ExtractionLog>
 
-#endif // ListeNoeud_H
+#endif // ExtractionLog_H
 

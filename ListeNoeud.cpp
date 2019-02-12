@@ -58,7 +58,7 @@ multimap <int, string> ListeNoeud::flip_map(const map <string, int> &src)
     return dst;
 }
 
-void ListeNoeud::Afficher()
+void ListeNoeud::AfficherDixPremiers()
 //flip puis multimap et enfin afficher les noeuds dans l'ordre décroissant des occurences
 {
     multimap <int, string> affichage = flip_map(listeN);
