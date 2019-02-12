@@ -37,7 +37,8 @@ public:
     // Mode d'emploi :
     //
     // Contrat :
-    //enum mois {Jan=1, Fev, Mar, Avr, Mai, Juin, Juil, Sep, Oct, Nov, Dec};
+    
+	int GetHeure();
 
 
 //------------------------------------------------- Surcharge d'opérateurs

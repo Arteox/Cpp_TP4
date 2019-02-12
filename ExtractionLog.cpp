@@ -58,7 +58,7 @@ ListeCible* ExtractionLog::GetListeCible()
 } //----- Fin de ExtractionLog (constructeur de copie)*/
 
 
-ExtractionLog::ExtractionLog (const string & nomF, const bool& optG)
+ExtractionLog::ExtractionLog (const string & nomF, const bool& optG, const bool& optE, const bool& optT, const int Td)
 // Algorithme :
 //
 {
@@ -66,6 +66,9 @@ ExtractionLog::ExtractionLog (const string & nomF, const bool& optG)
     cout << "Appel au constructeur de <ExtractionLog>" << endl;
 #endif
 	optionG = optG;
+	optionE = optE;
+	optionT = optT;
+	Tdate = Td;
 	nomFichier = nomF;
 	fichierLog.open(nomFichier);
 	string lect;
@@ -136,9 +139,27 @@ ExtractionLog::ExtractionLog (const string & nomF, const bool& optG)
             Noeud n (d, statut, URL_local, action, donnee, navi, extension, ip, username, pseudo);
 			
 			if (n.NoeudValide()){
-				listeNoeud.AjoutMap(URL_local);
-				if (optionG == true){
+				if (optionE == false && optionT == false)
+					listeNoeud.AjoutMap(URL_local);
+				if (optionE == true && optionT == true) {
+					if (strcmp(extension,"jpg") != 0 && strcmp(extension, "png") != 0 && strcmp(extension, "css") != 0 && strcmp(extension,"js") != 0))
+						listeNoeud.AjoutMap(URL_local);
+				}
+				if (optionT == true && optionE == false) {
+					if (d.GetHeure() == Tdate)
+						listeNoeud.AjoutMap(URL_local);
+				}
+
+				if (optionG == true && optionE == false && optionT == false) {
 					listeCible.AjoutMap(URL_local, ref);
+				}
+				if (optionG == true && optionE == true && optionT == false) {
+					if (strcmp(extension, "jpg") != 0 && strcmp(extension, "png") != 0 && strcmp(extension, "css") != 0)
+						listeCible.AjoutMap(URL_local, ref);
+				}
+				if (optionG == true && optionT == true && optionE == false) {
+					if (d.GetHeure() == Tdate)
+						listeCible.AjoutMap(URL_local, ref);
 				}
 			}
         }

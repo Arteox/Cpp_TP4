@@ -28,6 +28,11 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
+int Date::GetHeure()
+{
+	return heure;
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 Date & Date::operator = ( const Date & unDate )
