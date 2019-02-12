@@ -29,12 +29,16 @@ int main(int argc, char** argv){
     ListeNoeud* listeNoeud;
 	ListeCible* listeCible;
 	bool optionG = false;
+	bool optionE = false;
+	bool optionT = false;
+	int Tdate = 1000;
 	int indexG =0;
 	
 	//option -g
 	if (argc >=4){
 		for (int i =0; i<argc;i++){
-			if (strcmp(argv[i],"-g")==0 && argv[i+1]!=NULL){
+			// option -g simple
+			if (strcmp(argv[i],"-g")==0 && argv[i+1]!=NULL && strcmp(argv[i-1],"./analog")){
 				string verifFichierDot (argv[i+1]);
 				if(verifFichierDot.find(".dot") != string::npos){
 					optionG = true;
@@ -42,10 +46,20 @@ int main(int argc, char** argv){
 					break;
 				}
 			}
+
+			// option -e -g
+			if (strcmp(argv[i], "-g") == 0 && argv[i + 1] != NULL && strcmp(argv[i - 1], "-e")){
+				string verifFichierDot(argv[i + 1]);
+				if (verifFichierDot.find(".dot") != string::npos) {
+					optionG = true;
+					optionE = true;
+					indexG = i;
+					break;
+
 		}
 	}
 	
-	ExtractionLog eLog (nomFichier, optionG);
+	ExtractionLog eLog (nomFichier, optionG, optionE, optionT, Tdate);
 	listeNoeud = eLog.GetListeNoeud();
 	listeCible = eLog.GetListeCible();
 	

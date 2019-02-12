@@ -60,7 +60,7 @@ public:
     // Contrat :
     //
 
-    ExtractionLog (const string& nomF, const bool& optG);
+    ExtractionLog (const string& nomF, const bool& optG, const bool& optE, const bool& optT, const int Td);
     // Mode d'emploi :
     //
     // Contrat :
@@ -82,6 +82,9 @@ protected:
 	ListeNoeud listeNoeud;
 	ListeCible listeCible;
 	bool optionG;
+	bool optionE;
+	bool optionT;
+	int Tdate;
 	string nomFichier;
 };
 
