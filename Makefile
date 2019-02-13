@@ -5,12 +5,12 @@ DEPS = Noeud.h ListeNoeud.h Date.h ListeCible.h GraphViz.h ExtractionLog.h
 
 analog: $(OBJ)
 	$(CC) -g $^ -o $@
-	./analog anonyme.log
-	#valgrind --leak-check=full ./analog court.log
+	./analog tmp/anonyme.log
+	#valgrind --leak-check=full ./analog /tmp/court.log
 	
 analogG: $(OBJ)
 	$(CC) -g $^ -o $@
-	./analogG -g court3.dot court3.log
+	./analogG -g /tmp/court3.dot tmp/court3.log
 
 %.o: %.cpp $(DEPS)
 	$(CC) -c $< -o $@ $(CFLAGS)

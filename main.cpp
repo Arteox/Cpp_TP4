@@ -24,8 +24,21 @@ using namespace std;
 int main(int argc, char** argv){
 	
     ifstream ficLog;
+	
+	if (argc <2){
+		cerr << "Erreur : pas de fichier log précisé" << endl;
+		return 1;
+	}
+	
 	string nomFichier = argv[argc-1];
-
+	if (nomFichier.substr(0,4) != "tmp/"){
+		cerr << "Erreur : le fichier log ne provient pas du dossier tmp" << endl;
+		return 1;
+	}
+	else {
+		//nomFichier = nomFichier.substr(5, nomFichier.length()-5);
+		cout << nomFichier << endl;
+	}
     ListeNoeud* listeNoeud;
 	ListeCible* listeCible;
 	bool optionG = false;
@@ -38,7 +51,7 @@ int main(int argc, char** argv){
 	if (argc >=4){
 		for (int i =0; i<argc;i++){
 			// option -g simple
-			if (strcmp(argv[i],"-g")==0 && argv[i+1]!=NULL && strcmp(argv[i-1],"./analog")){
+			if (strcmp(argv[i],"-g")==0 && argv[i+1]!=NULL){
 				string verifFichierDot (argv[i+1]);
 				if(verifFichierDot.find(".dot") != string::npos){
 					optionG = true;
@@ -46,16 +59,6 @@ int main(int argc, char** argv){
 					break;
 				}
 			}
-
-			// option -e -g
-			if (strcmp(argv[i], "-g") == 0 && argv[i + 1] != NULL && strcmp(argv[i - 1], "-e")){
-				string verifFichierDot(argv[i + 1]);
-				if (verifFichierDot.find(".dot") != string::npos) {
-					optionG = true;
-					optionE = true;
-					indexG = i;
-					break;
-
 		}
 	}
 	
@@ -72,4 +75,6 @@ int main(int argc, char** argv){
 		graphe.GenererFichierDot();
 		graphe.GenererFichierPng();
 	}
+	
+	return 0;
 }

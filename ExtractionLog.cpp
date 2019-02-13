@@ -72,7 +72,6 @@ ExtractionLog::ExtractionLog (const string & nomF, const bool& optG, const bool&
 	nomFichier = nomF;
 	fichierLog.open(nomFichier);
 	string lect;
-	
 	if (fichierLog)
     {
 		//lecture du fichier log ligne par ligne
@@ -139,27 +138,9 @@ ExtractionLog::ExtractionLog (const string & nomF, const bool& optG, const bool&
             Noeud n (d, statut, URL_local, action, donnee, navi, extension, ip, username, pseudo);
 			
 			if (n.NoeudValide()){
-				if (optionE == false && optionT == false)
-					listeNoeud.AjoutMap(URL_local);
-				if (optionE == true && optionT == true) {
-					if (strcmp(extension,"jpg") != 0 && strcmp(extension, "png") != 0 && strcmp(extension, "css") != 0 && strcmp(extension,"js") != 0))
-						listeNoeud.AjoutMap(URL_local);
-				}
-				if (optionT == true && optionE == false) {
-					if (d.GetHeure() == Tdate)
-						listeNoeud.AjoutMap(URL_local);
-				}
-
-				if (optionG == true && optionE == false && optionT == false) {
+				listeNoeud.AjoutMap(URL_local);
+				if (optionG ==true){
 					listeCible.AjoutMap(URL_local, ref);
-				}
-				if (optionG == true && optionE == true && optionT == false) {
-					if (strcmp(extension, "jpg") != 0 && strcmp(extension, "png") != 0 && strcmp(extension, "css") != 0)
-						listeCible.AjoutMap(URL_local, ref);
-				}
-				if (optionG == true && optionT == true && optionE == false) {
-					if (d.GetHeure() == Tdate)
-						listeCible.AjoutMap(URL_local, ref);
 				}
 			}
         }
