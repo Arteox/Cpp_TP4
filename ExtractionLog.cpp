@@ -80,6 +80,7 @@ ExtractionLog::ExtractionLog (const string & nomF, const bool& optG, const bool&
         {
             istringstream iss(lect);
             vector <string> champIndiv {istream_iterator<string>{iss}, istream_iterator<string>{}};
+
             string ip = champIndiv[0];
             string username = champIndiv[1];
             string pseudo = champIndiv[2];
@@ -94,8 +95,8 @@ ExtractionLog::ExtractionLog (const string & nomF, const bool& optG, const bool&
 				int indiceQ = champIndiv[6].find("?");
 				URL_local = champIndiv[6].substr(0,indiceQ-1);
 			}
+
 			string extension;
-			
 			if (champIndiv[6].find(".") != string::npos){
 				int indice_debut = champIndiv[6].find(".")+1;
 				extension = champIndiv[6].substr(indice_debut,champIndiv[6].length()-indice_debut);
@@ -139,27 +140,47 @@ ExtractionLog::ExtractionLog (const string & nomF, const bool& optG, const bool&
             Noeud n (d, statut, URL_local, action, donnee, navi, extension, ip, username, pseudo);
 			
 			if (n.NoeudValide()){
+				// aucune option
 				if (optionE == false && optionT == false)
 					listeNoeud.AjoutMap(URL_local);
-				if (optionE == true && optionT == true) {
+				// option -e
+				if (optionE == true && optionT == false) {
 					if (strcmp(extension,"jpg") != 0 && strcmp(extension, "png") != 0 && strcmp(extension, "css") != 0 && strcmp(extension,"js") != 0))
 						listeNoeud.AjoutMap(URL_local);
 				}
+				// option -t
 				if (optionT == true && optionE == false) {
 					if (d.GetHeure() == Tdate)
 						listeNoeud.AjoutMap(URL_local);
 				}
+				// option -e -t
+				if (optionT == true && optionE == true) {
+					if (strcmp(extension, "jpg") != 0 && strcmp(extension, "png") != 0 && strcmp(extension, "css") != 0 && strcmp(extension, "js") != 0) {
+						if (d.GetHeure() == Tdate)
+							listeNoeud.AjoutMap(URL_local);
+					}
+				}
 
+				// option -g simple
 				if (optionG == true && optionE == false && optionT == false) {
 					listeCible.AjoutMap(URL_local, ref);
 				}
+				// option -e -g
 				if (optionG == true && optionE == true && optionT == false) {
-					if (strcmp(extension, "jpg") != 0 && strcmp(extension, "png") != 0 && strcmp(extension, "css") != 0)
+					if (strcmp(extension, "jpg") != 0 && strcmp(extension, "png") != 0 && strcmp(extension, "css") != 0 && strcmp(extension, "js") != 0)
 						listeCible.AjoutMap(URL_local, ref);
 				}
+				// option -t -g
 				if (optionG == true && optionT == true && optionE == false) {
 					if (d.GetHeure() == Tdate)
 						listeCible.AjoutMap(URL_local, ref);
+				}
+				// option -e -t -g
+				if (optionG == true && optionT == true && optionE == true) {
+					if (strcmp(extension, "jpg") != 0 && strcmp(extension, "png") != 0 && strcmp(extension, "css") != 0 && strcmp(extension, "js") != 0) {
+						if (d.GetHeure() == Tdate)
+							listeCible.AjoutMap(URL_local, ref);
+					}
 				}
 			}
         }
