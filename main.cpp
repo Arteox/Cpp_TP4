@@ -32,13 +32,15 @@ int main(int argc, char** argv){
 	
 	string nomFichier = argv[argc-1];
 	if (nomFichier.substr(0,4) != "tmp/"){
-		cerr << "Erreur : le fichier log ne provient pas du dossier tmp" << endl;
+		cerr << "Erreur : le fichier log ne provient pas du dossier tmp ou ordre invalide des arguments" << endl;
 		return 1;
 	}
-	else {
-		//nomFichier = nomFichier.substr(5, nomFichier.length()-5);
-		cout << nomFichier << endl;
+	
+	if (nomFichier.substr(nomFichier.length()-4, 4) != ".log"){
+		cerr << "Erreur : fichier log non reconnaissable" << endl;
+		return 1;
 	}
+	
     ListeNoeud* listeNoeud;
 	ListeCible* listeCible;
 	bool optionG = false;
@@ -48,21 +50,34 @@ int main(int argc, char** argv){
 	int indexG =0;
 	
 	//option -g
-	if (argc >=4){
-		for (int i =0; i<argc;i++){
-			// option -g simple
-			if (strcmp(argv[i],"-g")==0 && argv[i+1]!=NULL){
-				string verifFichierDot (argv[i+1]);
-				if(verifFichierDot.find(".dot") != string::npos){
-					optionG = true;
-					indexG = i;
-					break;
-				}
+
+	for (int i =0; i<argc;i++){
+		// option -g simple
+		if (strcmp(argv[i],"-g")==0 && argv[i+1]!=NULL){
+			string verifFichierDot (argv[i+1]);
+			if(verifFichierDot.find(".dot") != string::npos){
+				optionG = true;
+				indexG = i;
+				break;
+			}
+			else {
+				cerr << "Erreur : -g pas de fichier dot précisé" <<endl;
+				return 1;
 			}
 		}
 	}
 	
 	ExtractionLog eLog (nomFichier, optionG, optionE, optionT, Tdate);
+	
+	int nbLignesLog = eLog.GetLignesLog();
+	
+	if (nbLignesLog ==0){
+		cout << "Avertissement : fichier log vide" <<endl;
+	}
+	else if (nbLignesLog < 10){
+		cout << "Avertissement : le fichier log fourni fait moins de 10 lignes" << endl;
+	}
+	
 	listeNoeud = eLog.GetListeNoeud();
 	listeCible = eLog.GetListeCible();
 	

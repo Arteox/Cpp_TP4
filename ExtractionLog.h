@@ -44,6 +44,7 @@ public:
     //
 	ListeNoeud* GetListeNoeud();
 	ListeCible* GetListeCible();
+	int GetLignesLog() const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     //ExtractionLog & operator = ( const ExtractionLog & unExtractionLog );
@@ -86,6 +87,7 @@ protected:
 	bool optionT;
 	int Tdate;
 	string nomFichier;
+	int nbLignesLog;
 };
 
 //-------------------------------- Autres définitions dépendantes de <ExtractionLog>

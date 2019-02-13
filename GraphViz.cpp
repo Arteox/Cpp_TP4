@@ -96,7 +96,7 @@ GraphViz::GraphViz (ListeNoeud& N, ListeCible& C, string& nomF)
 #endif
 	listeNoeud = N;
 	listeCible = C;
-	nomFichier = nomF.substr(5,nomFichier.length()-5);
+	nomFichier = nomF;
 } //----- Fin de GraphViz
 
 

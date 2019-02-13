@@ -38,6 +38,11 @@ ListeCible* ExtractionLog::GetListeCible()
 	return &listeCible;
 }
 
+int ExtractionLog::GetLignesLog() const
+{
+	return nbLignesLog;
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 /*ExtractionLog & ExtractionLog::operator = ( const ExtractionLog & unExtractionLog )
@@ -65,6 +70,8 @@ ExtractionLog::ExtractionLog (const string & nomF, const bool& optG, const bool&
 #ifdef MAP
     cout << "Appel au constructeur de <ExtractionLog>" << endl;
 #endif
+
+	nbLignesLog =0;
 	optionG = optG;
 	optionE = optE;
 	optionT = optT;
@@ -77,6 +84,8 @@ ExtractionLog::ExtractionLog (const string & nomF, const bool& optG, const bool&
 		//lecture du fichier log ligne par ligne
         for (lect; getline(fichierLog, lect); )
         {
+			++nbLignesLog;
+			
             istringstream iss(lect);
             vector <string> champIndiv {istream_iterator<string>{iss}, istream_iterator<string>{}};
             string ip = champIndiv[0];
