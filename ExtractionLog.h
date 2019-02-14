@@ -28,7 +28,7 @@
 
 //------------------------------------------------------------------------
 // Rôle de la classe <ExtractionLog>
-//
+// Classe permettant d'extraire les informations utiles d'un fichier log
 //------------------------------------------------------------------------
 
 class ExtractionLog
@@ -42,35 +42,36 @@ public:
     //
     // Contrat :
     //
+	
 	ListeNoeud* GetListeNoeud();
+	// Mode d'emploi :
+    // Renvoie l'attribut listeNoeud
+    // Contrat : Aucun
+	
 	ListeCible* GetListeCible();
+	// Mode d'emploi :
+    // Renvoie l'attribut Cible
+    // Contrat : Aucun
+	
 	int GetLignesLog() const;
-
-//------------------------------------------------- Surcharge d'opérateurs
-    //ExtractionLog & operator = ( const ExtractionLog & unExtractionLog );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :
+    // Renvoie l'attribut nbLignesLog
+    // Contrat : Aucun
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    //ExtractionLog ( const ExtractionLog & unExtractionLog );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
 
-    ExtractionLog (const string& nomF, const bool& optG, const bool& optE, const bool& optT, const int Td);
+    ExtractionLog (const string& nomF, const bool& optG, const bool& optE, const bool& optT, int filtreH=-1);
     // Mode d'emploi :
-    //
+    // Copie les valeurs de tous les paramètres dans les attributs correspondants
+	// puis procède à la lecture du fichier log indiqué par nomF
     // Contrat :
-    //
+	// nomF doit correspondre à un chemin relatif vers un fichier log existant
 
     virtual ~ExtractionLog ( );
-    // Mode d'emploi :
+    // Mode d'emploi : vide
     //
-    // Contrat :
+    // Contrat : Aucun
     //
 
 //------------------------------------------------------------------ PRIVE
@@ -85,8 +86,8 @@ protected:
 	bool optionG;
 	bool optionE;
 	bool optionT;
-	int Tdate;
 	string nomFichier;
+	int filtreHeure;
 	int nbLignesLog;
 };
 

@@ -29,6 +29,7 @@ using namespace std;
 //} //----- Fin de Méthode
 
 void ListeNoeud::AjoutMap(const string &cible)
+// Algorithme : RAS
 {
 	//si on ne trouve pas le noeud, on l'ajoute
     if (listeN.find(cible) == listeN.end()){
@@ -38,16 +39,18 @@ void ListeNoeud::AjoutMap(const string &cible)
 	//le noeud existe, on incrémente
     {
         map<string, int>::iterator it = listeN.find(cible);
-        it->second++;
+        ++it->second;
     }
 }
 
 pair<int, string> ListeNoeud::flip_pair(const pair<string, int> &p)
+// Algorithme : RAS
 {
     return pair<int, string>(p.second, p.first);
 }
 
 multimap <int, string> ListeNoeud::flip_map(const map <string, int> &src)
+// Algorithme : RAS
 {
     multimap <int, string> dst;
 	map<string, int>::const_iterator it;
@@ -59,7 +62,9 @@ multimap <int, string> ListeNoeud::flip_map(const map <string, int> &src)
 }
 
 void ListeNoeud::AfficherDixPremiers()
-//flip puis multimap et enfin afficher les noeuds dans l'ordre décroissant des occurences
+// Algorithme :
+// On crée une multimap <int, string> puis on copie toutes les valeurs de listeN dedans
+// Ensuite on parcourt depuis la fin pour afficher les 10 sites les plus consultés
 {
     multimap <int, string> affichage = flip_map(listeN);
     multimap<int, string>::reverse_iterator it;
@@ -72,14 +77,15 @@ void ListeNoeud::AfficherDixPremiers()
 }
 
 map <string,int> ListeNoeud::GetMap() const
+// Algorithme : RAS
 {
 	return listeN;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
 ListeNoeud & ListeNoeud::operator = ( const ListeNoeud & unListeNoeud )
-// Algorithme :
-//
+// Algorithme : 
+// On efface toutes les valeurs de listeN puis on insère toutes les valeurs de unListeNoeud
 {
 	map <string, int> nouvMap = unListeNoeud.GetMap();
 	listeN.clear();
@@ -88,23 +94,26 @@ ListeNoeud & ListeNoeud::operator = ( const ListeNoeud & unListeNoeud )
 } //----- Fin de operator =
 
 bool ListeNoeud::MapEmpty()
+// Algorithme : RAS
 {
 	return listeN.empty();
 }
 
 //-------------------------------------------- Constructeurs - destructeur
 ListeNoeud::ListeNoeud ( const ListeNoeud & unListeNoeud )
-// Algorithme :
+// Algorithme : On insère directement les valeurs dans listeN qui est vide au départ
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <ListeNoeud>" << endl;
 #endif
+	map <string, int> nouvMap = unListeNoeud.GetMap();
+	listeN.insert(nouvMap.begin(), nouvMap.end());
 } //----- Fin de ListeNoeud (constructeur de copie)
 
 
 ListeNoeud::ListeNoeud ( )
-// Algorithme :
+// Algorithme : RAS
 //
 {
 #ifdef MAP
@@ -116,7 +125,7 @@ ListeNoeud::ListeNoeud ( )
 
 
 ListeNoeud::~ListeNoeud ( )
-// Algorithme :
+// Algorithme : RAS
 //
 {
 #ifdef MAP

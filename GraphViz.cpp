@@ -28,27 +28,38 @@ using namespace std;
 //} //----- Fin de Méthode
 
 void GraphViz::GenererFichierDot()
+// Algorithme :
+// Ecriture du fichier .dot avec le format suivant :
+// digraph {
+// liste des noeuds
+// liste des flèches
+// }
 {
 	ofstream fichierDot;
 	fichierDot.open(nomFichier);
 	if (fichierDot){
 		fichierDot << "digraph {" <<endl;
-		//ecriture du nom des noeuds
+		
+		//définition de toutes les variables nécessaires
 		map <string, int> mapNoeud = listeNoeud.GetMap();
 		map <string,int>::iterator itNoeud;
-
-		for (itNoeud = mapNoeud.begin(); itNoeud != mapNoeud.end(); ++itNoeud){
-			fichierDot << "\t" << "\"" << itNoeud->first <<"\";" <<endl;
-		}
-		
-		//nettoyage de la liste des referents qui ne sont pas des noeuds
-		listeCible.NettoyageMap(mapNoeud);
-		
-		//ecriture des fleches
 		map <string, map<string, int>> mapCible = listeCible.GetMap();
 		map<string, map<string,int>>::iterator itCible;
 		map<string, int>::iterator itRef;
 		
+		//on ajoute à la liste des noeuds tous les sites référents qui ne sont pas des sites cibles (sites extérieurs)
+		for (itCible = mapCible.begin(); itCible != mapCible.end(); ++itCible){
+			for (itRef = itCible->second.begin(); itRef != itCible->second.end(); ++itRef){
+				if (mapNoeud.find(itRef->first) == mapNoeud.end()){
+					mapNoeud.insert(make_pair(itRef->first,1));
+				}
+			}
+		}
+		
+		//écriture dans le fichier
+		for (itNoeud = mapNoeud.begin(); itNoeud != mapNoeud.end(); ++itNoeud){
+			fichierDot << "\t" << "\"" << itNoeud->first <<"\";" <<endl;
+		}	
 		for (itCible = mapCible.begin(); itCible != mapCible.end(); ++itCible){
 			for (itRef = itCible->second.begin(); itRef != itCible->second.end(); ++itRef){
 				fichierDot << "\t\"" << itRef->first << "\"" << " -> ";
@@ -57,38 +68,24 @@ void GraphViz::GenererFichierDot()
 			fichierDot << endl;
 		}
 		fichierDot << "}";
+		
 	}
 	fichierDot.close();
 }
 
 void GraphViz::GenererFichierPng()
+// Algorithme :
+// Simule l'exécution de la commande linux dot -Tpng -o fichier.png fichier.dot avec la fonction system()
 {
 	string nomFichierPng = nomFichier.substr(0, nomFichier.length()-3) + "png";
 	string commande = "dot -Tpng -o " + nomFichierPng + " " +nomFichier;
 	system(commande.c_str());
 }
 
-//------------------------------------------------- Surcharge d'opérateurs
-GraphViz & GraphViz::operator = ( const GraphViz & unGraphViz )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-
-
 //-------------------------------------------- Constructeurs - destructeur
-GraphViz::GraphViz ( const GraphViz & unGraphViz )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <GraphViz>" << endl;
-#endif
-} //----- Fin de GraphViz (constructeur de copie)
-
 
 GraphViz::GraphViz (ListeNoeud& N, ListeCible& C, string& nomF)
-// Algorithme :
+// Algorithme : RAS
 //
 {
 #ifdef MAP
@@ -101,7 +98,7 @@ GraphViz::GraphViz (ListeNoeud& N, ListeCible& C, string& nomF)
 
 
 GraphViz::~GraphViz ( )
-// Algorithme :
+// Algorithme : RAS
 //
 {
 #ifdef MAP

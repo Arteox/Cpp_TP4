@@ -22,8 +22,8 @@ typedef enum month {Jan=1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Date>
-// Classe permettant de stocker les informations concernant la date
-// à partir d'une ligne d'un fichier.log
+// Classe permettant de stocker les informations concernant la date de la requête d'une URL
+// à partir d'un extrait de ligne d'un fichier.log
 //
 //------------------------------------------------------------------------typedef enum TokenType
 
@@ -33,45 +33,74 @@ class Date
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
     
-	int GetHeure();
-
-
+	int GetHeure() const;
+	// Mode d'emploi : 
+    // Renvoie l'attribut protégé heure
+    // Contrat : Aucun
+	
+	int GetMin() const;
+	// Mode d'emploi : 
+    // Renvoie l'attribut protégé min
+    // Contrat : Aucun
+	
+	int GetSec() const;
+	// Mode d'emploi : 
+    // Renvoie l'attribut protégé sec
+    // Contrat : Aucun
+	
+	int GetGMT() const;
+	// Mode d'emploi : 
+    // Renvoie l'attribut protégé GMT
+    // Contrat : Aucun
+	
+	int GetJour() const;
+	// Mode d'emploi : 
+    // Renvoie l'attribut protégé jour
+    // Contrat : Aucun
+	
+	month GetMois() const;
+	// Mode d'emploi : 
+    // Renvoie l'attribut protégé mois
+    // Contrat : Aucun
+	
+	int GetAnnee() const;
+	// Mode d'emploi : 
+    // Renvoie l'attribut protégé annee
+    // Contrat : Aucun
+	
+	
 //------------------------------------------------- Surcharge d'opérateurs
-    Date & operator = ( const Date & unDate);
+    Date & operator = ( const Date & unDate );
     // Mode d'emploi :
+    // RAS
+    // Contrat : Aucun
     //
-    // Contrat :
-    //
-
-
 //-------------------------------------------- Constructeurs - destructeur
     Date ( const Date & unDate );
-    // Mode d'emploi (constructeur de copie) :typedef enum TokenType
-    //
-    // Contrat :
+    // Mode d'emploi (constructeur de copie) :
+    // RAS
+    // Contrat : Aucun
     //
 
     Date ( string date_brute );
     // Mode d'emploi :
-    //
+	// Dans une ligne d'un fichier log, on considère que 2 champs sont séparés par des espaces
+    // Le paramètre date_brute correspond alors aux 4e champ et 5e champ
+	// Par exemple : [08/Sep/2012 :11:16:02
     // Contrat :
-    //
+    // Bien respecter la syntaxe du paramètre à envoyer, comme l'exemple ci-dessus
 	
 	Date ( );
-    // Mode d'emploi : Constructeur sans paramètres
+    // Mode d'emploi : Constructeur sans paramètres, contenu vide
     //
-    // Contrat :
+    // Contrat : Ne pas mettre de paramètre
     //
 
     virtual ~Date ( );
-    // Mode d'emploi :
+    // Mode d'emploi : RAS, contenu vide
     //
-    // Contrat :
+    // Contrat : Aucun
     //
 
 //------------------------------------------------------------------ PRIVE

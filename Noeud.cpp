@@ -29,13 +29,28 @@ using namespace std;
 //} //----- Fin de Méthode
 
 string Noeud::GetURL() const
+// Algorithme : RAS
 {
     return URL_local;
 }
 
-bool Noeud::NoeudValide()
+bool Noeud::VerifExtensionOptionE() const
+// Algorithme : RAS
 {
-	if (statut == 200 && action == "GET"){
+	if (extension == "jpg" || extension == "js" || extension == "png" || extension == "css") {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+bool Noeud::VerifHeureOptionT(int filtre) const
+// Algorithme : Il faut vérifier que l'heure appartienne à l'intervalle [filtre; filtre+1[
+// Comme ce sont des entiers, cela revient à dire heure == filtre
+{
+	int heure = date.GetHeure();
+	if (heure == filtre){
 		return true;
 	}
 	else {
@@ -43,28 +58,38 @@ bool Noeud::NoeudValide()
 	}
 }
 
-//------------------------------------------------- Surcharge d'opérateurs
-/*Noeud & Noeud::operator = ( const Noeud & unNoeud )
-// Algorithme :
-//
-{
-} //----- Fin de operator =*/
-
+bool Noeud::NoeudValide(const bool& optionE, const bool& optionT, int filtreHeure)
+// Algorithme : RAS
+{	
+	bool valide = false;
+	if (statut == 200 && action == "GET"){
+		valide = true;
+	}
+	else {
+		return false;
+	}
+	
+	if (optionE == true){
+		valide = VerifExtensionOptionE();
+		if (valide == false){
+			return valide;
+		}
+	}
+	
+	if (optionT == true){
+		valide = VerifHeureOptionT(filtreHeure);
+		if (valide == false){
+			return valide;
+		}
+	}
+		
+	return valide;
+}
 
 //-------------------------------------------- Constructeurs - destructeur
-/*Noeud::Noeud ( const Noeud & unNoeud )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Noeud>" << endl;
-#endif
-} //----- Fin de Noeud (constructeur de copie)*/
 
-
-Noeud::Noeud (Date d, int s, string URL, string act, int don, string n, string ext, string IP, string u, string p)
-// Algorithme :
-//
+Noeud::Noeud (const Date& d, int s, string URL, string act, int don, string n, string ext, string IP, string u, string p)
+// Algorithme : RAS
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Noeud>" << endl;
@@ -83,7 +108,7 @@ Noeud::Noeud (Date d, int s, string URL, string act, int don, string n, string e
 
 
 Noeud::~Noeud ( )
-// Algorithme :
+// Algorithme : vide
 //
 {
 #ifdef MAP

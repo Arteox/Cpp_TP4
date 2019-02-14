@@ -26,8 +26,9 @@
 
 //------------------------------------------------------------------------
 // Rôle de la classe <GraphViz>
-//
-//
+// Classe permettant de générer un fichier .dot et son graphe (png)
+// à partir d'un fichier .log
+
 //------------------------------------------------------------------------
 
 class GraphViz
@@ -43,34 +44,28 @@ public:
     //
 	
 	void GenererFichierDot();
+	// Mode d'emploi :
+    // Génère un fichier.dot à partir d'un fichier .log,
+	// dont le nom est enregistré dans l'attribut nomFichier
+    // Contrat : 
+	// nomFichier doit être un chemin valide vers fichier.log
+	
 	void GenererFichierPng();
-
-//------------------------------------------------- Surcharge d'opérateurs
-    GraphViz & operator = ( const GraphViz & unGraphViz );
-    // Mode d'emploi :
-    //
+	// Mode d'emploi :
+	// Génère un fichier png à partir d'un fichier dot
     // Contrat :
-    //
-
+	// Le fichier dot doit être généré au préalable par la méthode GenererFichierDot
 
 //-------------------------------------------- Constructeurs - destructeur
-    GraphViz ( const GraphViz & unGraphViz );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
 
     GraphViz (ListeNoeud& N, ListeCible& C, string& nomF);
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    // Mode d'emploi : RAS
+    // Contrat : 
+    // Respecter les paramètres
 
     virtual ~GraphViz ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    // Mode d'emploi : Vide
+    // Contrat : Aucun
 
 //------------------------------------------------------------------ PRIVE
 

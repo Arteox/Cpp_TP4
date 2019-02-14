@@ -28,34 +28,87 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-int Date::GetHeure()
+int Date::GetHeure() const
+// Algorithme : RAS
 {
 	return heure;
+}
+
+int Date::GetMin() const
+// Algorithme : RAS
+{
+	return min;
+}
+	
+int Date::GetSec() const
+// Algorithme : RAS
+{
+	return sec;
+}
+
+int Date::GetGMT() const
+// Algorithme : RAS
+{
+	return GMT;
+}
+
+int Date::GetJour() const
+// Algorithme : RAS
+{
+	return jour;
+}
+
+month Date::GetMois() const
+// Algorithme : RAS
+{
+	return mois;
+}
+
+int Date::GetAnnee() const
+// Algorithme : RAS
+{
+	return annee;
 }
 
 
 //------------------------------------------------- Surcharge d'opérateurs
 Date & Date::operator = ( const Date & unDate )
 // Algorithme :
-//
+// Même algorithme que l'opérateur par défaut
 {
+	sec = unDate.GetSec();
+	min = unDate.GetMin();
+	heure = unDate.GetHeure();
+	jour = unDate.GetJour();
+	mois = unDate.GetMois();
+	annee = unDate.GetAnnee();
+	GMT = unDate.GetGMT();
+	return *this;
 } //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 Date::Date ( const Date & unDate )
 // Algorithme :
-//
+// Même algorithme que le constructeur de copie par défaut
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Date>" << endl;
 #endif
+	sec = unDate.GetSec();
+	min = unDate.GetMin();
+	heure = unDate.GetHeure();
+	jour = unDate.GetJour();
+	mois = unDate.GetMois();
+	annee = unDate.GetAnnee();
+	GMT = unDate.GetGMT();
 } //----- Fin de Date (constructeur de copie)
 
 
 Date::Date ( string date_brute )
 // Algorithme :
-//
+// Paramètre donné sans aucun au préalable, il faut donc extraire les sous-strings
+// qui nous intéressent pour chaque paramètre
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Date>" << endl;
@@ -99,8 +152,7 @@ Date::Date ( string date_brute )
 		mois =Dec;
 	}
     annee = stoi(date_brute.substr(8,4));
-
-    heure = stoi(date_brute.substr(13,2));
+	heure = stoi(date_brute.substr(13,2));
     min = stoi(date_brute.substr(16,2));
     sec = stoi(date_brute.substr(19,2));
 
@@ -108,11 +160,12 @@ Date::Date ( string date_brute )
 } //----- Fin de Date
 
 Date::Date()
+// Algorithme : RAS
 {
 }
 
 Date::~Date ( )
-// Algorithme :
+// Algorithme : RAS
 //
 {
 #ifdef MAP

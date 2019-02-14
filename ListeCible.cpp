@@ -28,6 +28,7 @@ using namespace std;
 //} //----- Fin de Méthode
 
 void ListeCible::AjoutMap(const string &cible, const string &ref)
+// Algorithme : RAS
 {
 	//la cible n'est pas dans le map
 	if (listeC.find(cible) == listeC.end()){
@@ -36,8 +37,8 @@ void ListeCible::AjoutMap(const string &cible, const string &ref)
 		listeC.insert(make_pair(cible,refs));
 	}
 	
-	//la cible deja presente, 2 cas
-	//verifier si ref present : non on l'ajoute dans map, oui on incremente
+	//la cible déjà présente, 2 cass
+	//vérifier si ref présent : non on l'ajoute dans map, oui on incrémente la valeur associée
 	else {
 		map <string, map<string, int>>::iterator it1;
 		it1 = listeC.find(cible);
@@ -53,34 +54,15 @@ void ListeCible::AjoutMap(const string &cible, const string &ref)
 }
 
 map <string, map<string, int>> ListeCible::GetMap() const
+// Algorithme : RAS
 {
 	return listeC;
 }
 
-void ListeCible::NettoyageMap(const map <string, int>& listeNoeud)
-{
-	map<string,map<string, int>>::iterator itCible;
-	
-	//on supprime les référents qui ne sont pas des noeuds
-	for (itCible = listeC.begin(); itCible !=listeC.end(); ++itCible) {
-		map <string, int>::iterator itRef;
-		itRef = itCible->second.begin();
-		while (itRef != itCible->second.end()){
-			if (listeNoeud.find(itRef->first) == listeNoeud.end()){
-				//itRef pointe vers l'élément suivant automatiquement
-				itRef = itCible->second.erase(itRef);
-			}
-			else {
-				++itRef;
-			}
-		}
-	}
-}
 
 //------------------------------------------------- Surcharge d'opérateurs
 ListeCible & ListeCible::operator = ( const ListeCible & unListeCible )
-// Algorithme :
-//
+// Algorithme : RAS
 {
 	listeC.clear();
 	map <string, map<string,int>> nouvMap = unListeCible.GetMap();
@@ -91,17 +73,18 @@ ListeCible & ListeCible::operator = ( const ListeCible & unListeCible )
 
 //-------------------------------------------- Constructeurs - destructeur
 ListeCible::ListeCible ( const ListeCible & unListeCible )
-// Algorithme :
-//
+// Algorithme : RAS
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <ListeCible>" << endl;
 #endif
+	map <string, map<string,int>> nouvMap = unListeCible.GetMap();
+	listeC.insert(nouvMap.begin(), nouvMap.end());
 } //----- Fin de ListeCible (constructeur de copie)
 
 
 ListeCible::ListeCible ( )
-// Algorithme :
+// Algorithme : RAS
 //
 {
 #ifdef MAP
@@ -112,7 +95,7 @@ ListeCible::ListeCible ( )
 
 
 ListeCible::~ListeCible ( )
-// Algorithme :
+// Algorithme : RAS
 //
 {
 #ifdef MAP
