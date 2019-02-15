@@ -5,6 +5,9 @@ DEPS = Noeud.h ListeNoeud.h Date.h ListeCible.h GraphViz.h ExtractionLog.h
 
 analog: $(OBJ)
 	$(CC) -g $^ -o $@
+	
+test:
+	/Tests/mktest.sh
 
 %.o: %.cpp $(DEPS)
 	$(CC) -c $< -o $@ $(CFLAGS)
